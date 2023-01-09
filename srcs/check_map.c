@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:24:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/07 19:50:14 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/09 19:09:17 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	char_contained(char **map)
 				++start;
 			else if (*(*(map + i) + j) == 'C')
 				++collectible;
+			else if (*(*(map + i) + j) != '0' && *(*(map + i) + j) != '1')
+				ft_exit("Forbidden character in the map (must only contain 0 - 1 - P - C - E)");
 			if (exit > 1)
 				ft_exit(MULT_EXIT);
 			if (start > 1)
@@ -53,7 +55,7 @@ void	char_contained(char **map)
 
 void	expand_path(char **map, int px, int py)
 {
-	if (map[px][py] != '1')
+	if (map[px][py] != '1' && map[px][py] != 'P')
 	{
 		map[px][py] = 'P';
 		explore_map(map, px, py);
@@ -63,13 +65,13 @@ void	expand_path(char **map, int px, int py)
 
 void	explore_map(char **map, int px, int py)
 {
-	if (px && map[px - 1][py])
+	if (px)
 		expand_path(map, px - 1, py);
-	if (py && map[px][py - 1])
+	if (py)
 		expand_path(map, px, py - 1);
 	if (map[px][py + 1])
 		expand_path(map, px, py + 1);
-	if (map[px + 1] && map[px + 1][py])
+	if (map[px + 1])
 		expand_path(map, px + 1, py);
 	return ;
 }
@@ -79,13 +81,13 @@ void	valid_path(char **map)
 	int	px;
 	int	py;
 
-	px = 1;
+	px = 0;
 	while (map[px + 1] && map[px][py] != 'P')
 	{
+		++px;
 		py = 1;
 		while (map[px][py] && map[px][py] != 'P')
 			++py;
-		++px;
 	}
 	explore_map(map, px, py);
 	px = 1;
@@ -140,8 +142,29 @@ void	rectangular(char **map)
 	}
 }
 
+char	**clean_map(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == '\n')
+				map[i][j] = 0;
+			++j;
+		}
+		++i;
+	}
+	return (map);
+}
+
 int	check_map(char **map)
 {
+	map = clean_map(map);
 	rectangular(map);
 	closed_walls(map);
 	char_contained(map);

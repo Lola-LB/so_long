@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:31:03 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/07 20:45:08 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/09 19:01:12 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_exit(char *error)
 {
-	ft_printf("Error\n");
-	ft_printf("%s\n", error);
+	ft_printf("Error\n%s\n", error);
 	exit(0);
 }
