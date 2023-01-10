@@ -29,13 +29,15 @@ SRCS_PRINTF	= ft_printf.c			\
 			  convert.c				\
 			  sort.c				\
 
-SRCS		= check_map.c			\
-			  main.c				\
-			  utils.c				\
+SRCS		= main.c				\
+			  check_map.c			\
+			  find_path.c			\
 			  parse_map.c			\
-			#   walls.c				\
+			  display.c				\
+			  events.c				\
+			  utils.c				\
+			#   game.c				\
 			#   enemy.c				\
-			#   init.c				\
 
 OBJS_LIBFT	= $(addprefix srcs/libft/, $(SRCS_LIBFT:.c=.o))
 

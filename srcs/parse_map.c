@@ -6,22 +6,22 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:26:01 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/09 19:02:33 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:42:05 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	print_map(char **map)
-{
-	while (*map)
-	{
-		printf("%s\n", *map);
-		++map;
-	}
-}
+// void	print_map(char **map)
+// {
+// 	while (*map)
+// 	{
+// 		printf("%s\n", *map);
+// 		++map;
+// 	}
+// }
 
-int		map_len(char *file)
+int	map_len(char *file)
 {
 	int		len;
 	int		fd;
@@ -37,7 +37,7 @@ int		map_len(char *file)
 			++len;
 	}
 	close(fd);
-	return(len);
+	return (len);
 }
 
 void	check_extension(char *file)
@@ -46,12 +46,12 @@ void	check_extension(char *file)
 
 	len = ft_strlen(file);
 	if (len < 5 || ft_strcmp(".ber", file + len - 4) != 0)
-		ft_exit("Error\nThe map must end with a .ber extension\n");
+		ft_exit(NULL, "Map file must end with a .ber extension");
 }
 
-char	**parse_map(char *file)
+t_map	parse_map(char *file)
 {
-	char	**map;
+	t_map	map;
 	char	*line;
 	int		len;
 	int		fd;
@@ -60,17 +60,19 @@ char	**parse_map(char *file)
 	len = map_len(file);
 	check_extension(file);
 	fd = open(file, O_RDONLY);
-	map = malloc(sizeof(char *) * (len + 1));
-	if (!map)
-		ft_exit("Malloc error");
+	map.map = malloc(sizeof(char *) * (len + 1));
+	if (!map.map)
+		ft_exit(NULL, MALLOC_ERROR);
 	line = get_next_line(fd);
 	i = 0;
 	while (i < len)
 	{
-		*(map + i) = line;
+		*(map.map + i) = line;
 		line = get_next_line(fd);
 		++i;
 	}
-	*(map + i) = NULL;
+	*(map.map + i) = NULL;
+	map.len = len;
+	map.width = ft_strlen(map.map[0]);
 	return (map);
 }
