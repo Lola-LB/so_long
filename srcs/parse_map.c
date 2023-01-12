@@ -73,6 +73,6 @@ t_map	parse_map(char *file)
 	}
 	*(map.map + i) = NULL;
 	map.len = len;
-	map.width = ft_strlen(map.map[0]);
+	map.width = ft_strlen(map.map[0]) - 1;
 	return (map);
 }

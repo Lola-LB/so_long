@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 20:08:41 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/09 17:27:27 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/12 15:30:23 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdarg.h>
 # include <wchar.h>
 # include <stddef.h>
+# include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
@@ -30,7 +31,7 @@
 // LIBFT
 
 void		*ft_memset(void *b, int c, size_t len);
-void		ft_bzero(void *s, size_t n);
+void		ft_bzero(char *s, size_t n);
 int			ft_strlen(char *str);
 int			ft_toupper(int c);
 int			ft_isdigit(int c);
@@ -43,14 +44,17 @@ char		*ft_uitoa(intmax_t n, int base);
 char		*ft_strtoupper(char *str);
 void		*ft_memalloc(size_t size);
 int			ft_strcmp(const char *s1, const char *s2);
-char		*ft_calloc(int size);
 char		*ft_strncat(char *dest, char *src, int n);
+char		*ft_calloc(size_t nmemb, size_t size);
+char		*ft_strjoin(char *s1, char *s2, size_t len);
+void		*ft_memcpy(void *dest, const void *src, size_t n);
 
 // GET NEXT LINE
 
-int	read_file(int fd, char **buffer_ptr, char **line);
-char	*update_line(char *line, char **buffer_ptr, int j);
-char	*get_line(int fd, char **buffer_ptr, char *line);
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 32
+# endif
+
 char	*get_next_line(int fd);
 
 // PRINTF

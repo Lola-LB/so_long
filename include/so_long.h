@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/10 18:52:17 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/12 15:13:36 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@
 # define FORBIDDEN_CHAR "Map contains forbidden characters"
 # define MALLOC_ERROR "Malloc error"
 
-# define W 
-# define A 
-# define D 
-# define S 
+# define NB_FILES 9
+
+# define W 119 //65362 //126
+# define A 97 //65361 //123
+# define S 115 //65364 //125
+# define D 100 //65363 //124
 
 # include <stdio.h>
 # include <unistd.h>
@@ -63,14 +65,18 @@ typedef struct	s_param {
 	void	*win;
 	t_map	map;
 	t_img	*img;
+	int		move;
 	t_loc	player;
+	int		coll;
+	int		left;
 }	t_param;
 
 /* ************************************************************************** */
 /*                                   main.c                                   */
 /* ************************************************************************** */
 
-void	launch_game(t_map map);
+void	init_player(t_param *param);
+void	launch_game(t_param	param);
 void	end_game(t_param param);
 
 /* ************************************************************************** */
@@ -85,10 +91,10 @@ t_map	parse_map(char *file);
 /*                                 check_map.c                                */
 /* ************************************************************************** */
 
-void	char_contained(char **map);
+int 	char_contained(char **map);
 void	closed_walls(char **map);
 void	rectangular(char **map);
-int		check_map(t_map *map);
+int		check_map(t_param *param);
 
 /* ************************************************************************** */
 /*                                 find_path.c                                */

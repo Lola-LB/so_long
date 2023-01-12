@@ -6,13 +6,13 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:24:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/10 18:50:36 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/12 15:41:26 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	char_contained(char **map)
+int	char_contained(char **map)
 {
 	int	exit;
 	int	start;
@@ -51,6 +51,7 @@ void	char_contained(char **map)
 		ft_exit(NULL, NO_START);
 	if (!collectible)
 		ft_exit(NULL, NO_COLL);
+	return (collectible);
 }
 
 void	closed_walls(char **map)
@@ -111,12 +112,12 @@ char	**clean_map(char **map)
 	return (map);
 }
 
-int	check_map(t_map *map)
+int	check_map(t_param *param)
 {
-	map->map = clean_map(map->map);
-	rectangular(map->map);
-	closed_walls(map->map);
-	char_contained(map->map);
-	valid_path(*map);
+	param->map.map = clean_map(param->map.map);
+	rectangular(param->map.map);
+	closed_walls(param->map.map);
+	param->coll = char_contained(param->map.map);
+	valid_path(param->map);
 	return (1);
 }

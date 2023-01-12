@@ -19,7 +19,7 @@ void	print_map(char **map)
 	i = 0;
 	while (map[i])
 	{
-		ft_printf("%s\n", map[i]);
+		printf("%s\n", map[i]);
 		++i;
 	}
 }
@@ -28,11 +28,11 @@ void	ft_exit(t_param *param, char *error)
 {
 	if (param)
 	{
-		mlx_destroy_display(param->mlx);
+		//mlx_destroy_display(param->mlx);
 		mlx_destroy_window(param->mlx, param->win);
 		//free(param->win);
 		//free(param->mlx);
 	}
-	ft_printf("Error\n%s\n", error);
+	printf("Error\n%s\n", error);
 	exit(0);
 }
