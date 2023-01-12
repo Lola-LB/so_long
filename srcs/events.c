@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/12 15:15:34 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:49:17 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	swap_player(t_param *param, t_loc old, int x, int y)
 		if (param->map.map[x][y] == 'C')
 			param->coll--;
 		else if (param->map.map[x][y] == 'E' && param->coll == 0)
-			end_game(*param);
+			end_game(param);
 		param->map.map[x][y] = 'P';
 		param->map.map[old.x][old.y] = '0';
 		param->player.x = x;
@@ -49,13 +49,8 @@ void	move_player(int keysym, t_param *param)
 
 int	handle_key(int keysym, t_param *param)
 {
-	//printf("%d\n", keysym);
-	if (param->win)
-	{
-
-	}
-	if (keysym == XK_Escape) // 5 on mac
-		end_game(*param);
+	if (keysym == XK_Escape)
+		end_game(param);
 	else if (keysym == W || keysym == A || keysym == S || keysym == D)
 	{
 		move_player(keysym, param);

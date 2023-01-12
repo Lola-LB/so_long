@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/12 15:43:38 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:15:14 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	init_images(t_param *param)
 
 	images = malloc(sizeof(t_img) * NB_FILES);
 	if (!images)
-		ft_exit(param, MALLOC_ERROR);
+		ft_error(param, MALLOC_ERROR);
 	i = 0;
 	while (i < NB_FILES)
 	{
 		images[i].img = mlx_xpm_file_to_image(param->mlx, files[i],
 				&images[i].width, &images[i].height);
 		if (!images[i].img)
-			ft_exit(param, MALLOC_ERROR);
+			ft_error(param, FILE_ERROR);
 		++i;
 	}
 	param->img = images;
@@ -37,7 +37,6 @@ void	init_images(t_param *param)
 
 void	*get_img(t_param *param, int i, int j)
 {
-	// printf("%d %d ok\n", i, j);
 	if (param->map.map[i][j] == '1')
 		return (param->img[6].img);
 	else if (param->map.map[i][j] == 'P')

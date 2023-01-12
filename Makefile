@@ -30,9 +30,10 @@ SRCS_PRINTF	= ft_printf.c			\
 			  sort.c				\
 
 SRCS		= main.c				\
-			  check_map.c			\
-			  find_path.c			\
-			  parse_map.c			\
+			  map_check.c			\
+			  map_char.c			\
+			  map_path.c			\
+			  map_parse.c			\
 			  display.c				\
 			  events.c				\
 			  utils.c				\

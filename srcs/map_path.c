@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 18:12:48 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/12 15:42:34 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:09:31 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,15 @@ void	valid_path(t_map map)
 		while (map_copy[px][py + 1])
 		{
 			if (map_copy[px][py] == 'C' || map_copy[px][py] == 'E')
-				ft_exit(NULL, NO_VALID_PATH);
+			{
+				free_map(map_copy);
+				ft_error(NULL, NO_VALID_PATH);
+			}
 			++py;
 		}
 		++px;
 	}
+	free_map(map_copy);
 }
 
 char	**ft_mapcopy(t_map src)

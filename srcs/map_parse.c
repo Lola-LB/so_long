@@ -6,20 +6,11 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:26:01 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/10 18:42:05 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/12 17:06:54 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// void	print_map(char **map)
-// {
-// 	while (*map)
-// 	{
-// 		printf("%s\n", *map);
-// 		++map;
-// 	}
-// }
 
 int	map_len(char *file)
 {
@@ -46,7 +37,7 @@ void	check_extension(char *file)
 
 	len = ft_strlen(file);
 	if (len < 5 || ft_strcmp(".ber", file + len - 4) != 0)
-		ft_exit(NULL, "Map file must end with a .ber extension");
+		ft_error(NULL, "Map file must end with a .ber extension");
 }
 
 t_map	parse_map(char *file)
@@ -62,7 +53,7 @@ t_map	parse_map(char *file)
 	fd = open(file, O_RDONLY);
 	map.map = malloc(sizeof(char *) * (len + 1));
 	if (!map.map)
-		ft_exit(NULL, MALLOC_ERROR);
+		ft_error(NULL, MALLOC_ERROR);
 	line = get_next_line(fd);
 	i = 0;
 	while (i < len)

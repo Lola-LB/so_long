@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/12 15:13:36 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/12 17:16:04 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # define NO_VALID_PATH "There is no valid path in the map"
 # define FORBIDDEN_CHAR "Map contains forbidden characters"
 # define MALLOC_ERROR "Malloc error"
+# define MLX_ERROR "Minilibx error"
+# define FILE_ERROR "File error"
+
 
 # define NB_FILES 9
 
@@ -75,12 +78,11 @@ typedef struct	s_param {
 /*                                   main.c                                   */
 /* ************************************************************************** */
 
-void	init_player(t_param *param);
 void	launch_game(t_param	param);
-void	end_game(t_param param);
+int		end_game(t_param *param);
 
 /* ************************************************************************** */
-/*                                 parse_map.c                                */
+/*                                 map_parse.c                                */
 /* ************************************************************************** */
 
 int		map_len(char *file);
@@ -88,16 +90,24 @@ void	check_extension(char *file);
 t_map	parse_map(char *file);
 
 /* ************************************************************************** */
-/*                                 check_map.c                                */
+/*                                 map_check.c                                */
 /* ************************************************************************** */
 
-int 	char_contained(char **map);
-void	closed_walls(char **map);
-void	rectangular(char **map);
+void	closed_walls(t_param *param);
+void	rectangular(t_param *param);
+void	clean_map(t_param *param);
 int		check_map(t_param *param);
 
 /* ************************************************************************** */
-/*                                 find_path.c                                */
+/*                                 map_check.c                                */
+/* ************************************************************************** */
+
+void	check_char(t_param *param, int exit, int start, int collectible);
+void	init_player(t_param *param, int *start, int i, int j);
+void	char_contained(t_param *param, int exit, int start, int collectible);
+
+/* ************************************************************************** */
+/*                                 map_path.c                                 */
 /* ************************************************************************** */
 
 void	expand_path(char **map, int px, int py);
@@ -109,8 +119,10 @@ char	**ft_mapcopy(t_map src);
 /*                                   utils.c                                  */
 /* ************************************************************************** */
 
-void	ft_exit(t_param *param, char *error);
+void	ft_error(t_param *param, char *error);
 void	print_map(char **map);
+void	free_map(char **map);
+void	init_param(t_param *param, t_map map);
 
 /* ************************************************************************** */
 /*                                 display.c                                  */
