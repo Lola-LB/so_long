@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/12 17:16:04 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/12 17:17:04 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	clean_map(t_param *param);
 int		check_map(t_param *param);
 
 /* ************************************************************************** */
-/*                                 map_check.c                                */
+/*                                 map_char.c                                 */
 /* ************************************************************************** */
 
 void	check_char(t_param *param, int exit, int start, int collectible);

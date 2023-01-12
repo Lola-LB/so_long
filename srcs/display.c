@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/12 16:15:14 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/12 18:10:11 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	init_images(t_param *param)
 {
 	t_img		*images;
 	static char	*files[NB_FILES] = {"files/axe.xpm", "files/beer.xpm",
-		"files/floor.xpm", "files/lad.xpm", "files/miss.xpm", "files/tos.xpm",
-		"files/wall.xpm", "files/miss_left.xpm", "files/win_screen.xpm"};
+		"files/floor.xpm", "files/lad.xpm", "files/talon_right.xpm", "files/tos.xpm",
+		"files/wall.xpm", "files/talon_left.xpm", "files/win_screen.xpm"};
 	int			i;
 
 	images = malloc(sizeof(t_img) * NB_FILES);
