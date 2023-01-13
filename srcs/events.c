@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/13 19:18:57 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/13 20:05:31 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	swap_player(t_param *param, t_loc old, int x, int y)
 			{
 				param->coll--;
 				param->burp = 1;
+				if (!param->coll)
+					param->map.map[param->exit.x][param->exit.y] = 'E';
 			}
 			param->map.map[x][y] = 'P';
 			param->map.map[old.x][old.y] = '0';

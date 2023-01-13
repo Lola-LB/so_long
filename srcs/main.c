@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:41:26 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/13 19:07:18 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/13 19:38:52 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	launch_game(t_param	*param)
 	param->mlx = mlx;
 	param->win = win;
 	init_images(param);
-	//mlx_put_image_to_window(param->mlx, param->win, param->img[15].img, 0, 0);
 	images_to_map(param);
 	mlx_loop_hook(mlx, &handle_live, param);
 	mlx_hook(win, 2, (1L << 0), &handle_key, param);

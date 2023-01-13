@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:05:34 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/13 18:56:52 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/13 19:56:29 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	nb_enemy(t_param *param)
 		}
 		++i;
 	}
-	return ((nb / 20) + (nb < 20) * (nb > 0));
+	return ((nb / 30) + (nb < 30) * (nb > 0));
 }
 
 void	init_enemy(t_param *param)

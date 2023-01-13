@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/13 19:21:01 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/13 19:29:15 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	images_to_map(t_param *param)
 		while (j < param->map.width)
 		{
 			img = get_img(param, i, j);
-			(void) img;
 			if (img)
 				mlx_put_image_to_window(param->mlx,
 					param->win, img, j * NB_PIXEL, i * NB_PIXEL);

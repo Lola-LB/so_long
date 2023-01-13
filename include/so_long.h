@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/13 18:48:40 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/13 19:58:40 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct	s_param {
 	t_map	map;
 	t_img	*img;
 	t_loc	player;
+	t_loc	exit;
 	t_enemy	enemy;
 	int		move;
 	int		coll;
