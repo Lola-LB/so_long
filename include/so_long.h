@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/12 17:17:04 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/13 18:48:40 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 # define FILE_ERROR "File error"
 
 
-# define NB_FILES 9
+# define NB_FILES 16
+# define NB_PIXEL 70
 
 # define W 119 //65362 //126
 # define A 97 //65361 //123
@@ -63,22 +64,30 @@ typedef struct s_map {
 	int		len;
 }	t_map;
 
+typedef struct s_enemy {
+	t_loc	*loc;
+	int		nb;
+}	t_enemy;
+
 typedef struct	s_param {
 	void	*mlx;
 	void	*win;
 	t_map	map;
 	t_img	*img;
-	int		move;
 	t_loc	player;
+	t_enemy	enemy;
+	int		move;
 	int		coll;
 	int		left;
+	int		burp;
+	int		end_game;
 }	t_param;
 
 /* ************************************************************************** */
 /*                                   main.c                                   */
 /* ************************************************************************** */
 
-void	launch_game(t_param	param);
+void	launch_game(t_param	*param);
 int		end_game(t_param *param);
 
 /* ************************************************************************** */
@@ -123,6 +132,8 @@ void	ft_error(t_param *param, char *error);
 void	print_map(char **map);
 void	free_map(char **map);
 void	init_param(t_param *param, t_map map);
+void	game_over(t_param *param);
+void	win_screen(t_param *param);
 
 /* ************************************************************************** */
 /*                                 display.c                                  */
@@ -136,7 +147,17 @@ void	images_to_map(t_param *param);
 /*                                   events.c                                 */
 /* ************************************************************************** */
 
-int	handle_key(int keysym, t_param *param);
-int	handle_no_event(t_param *param);
+int		handle_key(int keysym, t_param *param);
+int		handle_no_event(t_param *param);
+int		handle_live(t_param *param);
+
+/* ************************************************************************** */
+/*                                    enemy.c                                 */
+/* ************************************************************************** */
+
+int		nb_enemy(t_param *param);
+void	init_enemy(t_param *param);
+void	move_enemy(t_param *param);
+void	check_enemy(t_param *param);
 
 #endif

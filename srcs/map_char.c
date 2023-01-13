@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 17:05:56 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/12 17:11:48 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/13 19:01:47 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ void	char_contained(t_param *param, int exit, int start, int collectible)
 		}
 		++i;
 	}
-	check_char(param, exit, start, collectible);
 	param->coll = collectible;
+	check_char(param, exit, start, collectible);
 }

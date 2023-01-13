@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/12 18:10:11 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/13 19:21:01 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 void	init_images(t_param *param)
 {
 	t_img		*images;
-	static char	*files[NB_FILES] = {"files/axe.xpm", "files/beer.xpm",
-		"files/floor.xpm", "files/lad.xpm", "files/talon_right.xpm", "files/tos.xpm",
-		"files/wall.xpm", "files/talon_left.xpm", "files/win_screen.xpm"};
+	static char	*files[NB_FILES] = {"files/beer.xpm", "files/grass.xpm",
+		"files/lad.xpm", "files/bush.xpm", "files/char_1.xpm", 
+		"files/char_2.xpm", "files/char_3.xpm","files/char_4.xpm",
+		"files/char_1_left.xpm", "files/char_2_left.xpm", "files/char_3_left.xpm",
+		"files/char_4_left.xpm", "files/burp.xpm", "files/police.xpm",
+		"files/game_over.xpm", "files/win_screen.xpm"};
 	int			i;
 
 	images = malloc(sizeof(t_img) * NB_FILES);
@@ -37,21 +40,32 @@ void	init_images(t_param *param)
 
 void	*get_img(t_param *param, int i, int j)
 {
+	int	offset;
+
 	if (param->map.map[i][j] == '1')
-		return (param->img[6].img);
+		return (param->img[3].img);
 	else if (param->map.map[i][j] == 'P')
 	{
+		offset = 4;
 		if (param->left)
-			return (param->img[7].img);
-		else
-			return (param->img[4].img);
+			offset = 8;
+		return (param->img[offset + param->move % 4].img);
 	}
 	else if (param->map.map[i][j] == 'C')
-		return (param->img[1].img);
+		return (param->img[0].img);
 	else if (param->map.map[i][j] == 'E' && param->coll == 0)
-		return (param->img[3].img);
-	else
-		return (NULL);
+		return (param->img[2].img);
+	else if (param->map.map[i][j] == 'X')
+		return (param->img[13].img);
+	return (NULL);
+}
+
+void	burp(t_param *param)
+{
+	if (param->burp)
+	{
+		mlx_put_image_to_window(param->mlx, param->win, param->img[12].img, (param->player.y + 0.5) * NB_PIXEL, param->player.x * NB_PIXEL);
+	}
 }
 
 void	images_to_map(t_param *param)
@@ -61,7 +75,7 @@ void	images_to_map(t_param *param)
 	void	*img;
 
 	i = 0;
-	mlx_put_image_to_window(param->mlx, param->win, param->img[2].img, 0, 0);
+	mlx_put_image_to_window(param->mlx, param->win, param->img[1].img, 0, 0);
 	while (i < param->map.len)
 	{
 		j = 0;
@@ -71,9 +85,10 @@ void	images_to_map(t_param *param)
 			(void) img;
 			if (img)
 				mlx_put_image_to_window(param->mlx,
-					param->win, img, j * 50, i * 50);
+					param->win, img, j * NB_PIXEL, i * NB_PIXEL);
 			++j;
 		}
 		++i;
 	}
+	burp(param);
 }

@@ -36,9 +36,9 @@ SRCS		= main.c				\
 			  map_parse.c			\
 			  display.c				\
 			  events.c				\
+			  enemy.c				\
 			  utils.c				\
 			#   game.c				\
-			#   enemy.c				\
 
 OBJS_LIBFT	= $(addprefix srcs/libft/, $(SRCS_LIBFT:.c=.o))
 

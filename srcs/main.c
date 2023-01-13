@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:41:26 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/12 16:56:29 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/13 19:07:18 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,31 @@ int	main(int ac, char **av)
 	if (!map.map || !*map.map)
 		ft_error(NULL, "Parsing of the map failed");
 	init_param(&param, map);
-	launch_game(param);
+	launch_game(&param);
 	return (0);
 }
 
-void	launch_game(t_param	param)
+void	launch_game(t_param	*param)
 {
 	void		*mlx;
 	void		*win;
 
 	mlx = mlx_init();
 	if (!mlx)
-		ft_error(&param, MLX_ERROR);
-	win = mlx_new_window(mlx, param.map.width * 50,
-			param.map.len * 50, "Welcome to So Long !");
+		ft_error(param, MLX_ERROR);
+	win = mlx_new_window(mlx, param->map.width * NB_PIXEL,
+			param->map.len * NB_PIXEL, "Welcome to So Long !");
 	if (!win)
-		ft_error(&param, MLX_ERROR);
-	param.mlx = mlx;
-	param.win = win;
-	init_images(&param);
-	images_to_map(&param);
-	mlx_hook(win, 2, (1L << 0), &handle_key, &param);
-	mlx_hook(win, 17, (1L << 1), &end_game, &param);
+		ft_error(param, MLX_ERROR);
+	param->mlx = mlx;
+	param->win = win;
+	init_images(param);
+	//mlx_put_image_to_window(param->mlx, param->win, param->img[15].img, 0, 0);
+	images_to_map(param);
+	mlx_loop_hook(mlx, &handle_live, param);
+	mlx_hook(win, 2, (1L << 0), &handle_key, param);
+	mlx_hook(win, 17, (1L << 1), &end_game, param);
 	mlx_loop(mlx);
-	end_game(&param);
 }
 
 int	end_game(t_param *param)
