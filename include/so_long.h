@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/13 19:58:40 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/14 20:38:58 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,23 @@
 # define MLX_ERROR "Minilibx error"
 # define FILE_ERROR "File error"
 
-
-# define NB_FILES 16
+# define NB_FILES 26
+# define NUM_OFFSET 16
 # define NB_PIXEL 70
 
-# define W 119 //65362 //126
-# define A 97 //65361 //123
-# define S 115 //65364 //125
-# define D 100 //65363 //124
+
+# define W 126 //119 //65362 //126
+# define A 123 //97 //65361 //123
+# define S 125 //115 //65364 //125
+# define D 124 //100 //65363 //124
+# define XK_Escape 53
+
 
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <X11/keysym.h>
+//# include <X11/keysym.h>
 # include "libft.h"
 # include "mlx.h"
 
@@ -133,11 +136,10 @@ void	ft_error(t_param *param, char *error);
 void	print_map(char **map);
 void	free_map(char **map);
 void	init_param(t_param *param, t_map map);
-void	game_over(t_param *param);
-void	win_screen(t_param *param);
+void	end_screen(t_param *param, int win);
 
 /* ************************************************************************** */
-/*                                 display.c                                  */
+/*                                  display.c                                 */
 /* ************************************************************************** */
 
 void	init_images(t_param *param);
@@ -153,12 +155,9 @@ int		handle_no_event(t_param *param);
 int		handle_live(t_param *param);
 
 /* ************************************************************************** */
-/*                                    enemy.c                                 */
+/*                                    score.c                                 */
 /* ************************************************************************** */
 
-int		nb_enemy(t_param *param);
-void	init_enemy(t_param *param);
-void	move_enemy(t_param *param);
-void	check_enemy(t_param *param);
+void	display_score(t_param *param);
 
 #endif

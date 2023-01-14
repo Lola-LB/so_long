@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_char.c                                         :+:      :+:    :+:   */
+/*   map_char_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 17:05:56 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/14 19:26:38 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/14 19:16:18 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	check_char(t_param *param, int exit, int start, int collectible)
 {
