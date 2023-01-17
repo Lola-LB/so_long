@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/14 20:49:18 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:08:56 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_images(t_param *param)
 		"files/win_screen.xpm", "files/numbers_0.xpm", "files/numbers_1.xpm",
 		"files/numbers_2.xpm", "files/numbers_3.xpm", "files/numbers_4.xpm",
 		"files/numbers_5.xpm", "files/numbers_6.xpm", "files/numbers_7.xpm",
-		"files/numbers_8.xpm", "files/numbers_9.xpm"};
+		"files/numbers_8.xpm", "files/numbers_9.xpm", "files/gameboy.xpm"};
 	int			i;
 
 	images = malloc(sizeof(t_img) * NB_FILES);
@@ -36,7 +36,10 @@ void	init_images(t_param *param)
 		images[i].img = mlx_xpm_file_to_image(param->mlx, files[i],
 				&images[i].width, &images[i].height);
 		if (!images[i].img)
+		{
+			printf("%s %i\n", files[i], i);
 			ft_error(param, FILE_ERROR);
+		}
 		++i;
 	}
 	param->img = images;
