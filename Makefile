@@ -36,15 +36,26 @@ SRCS		= main.c				\
 			  map_parse.c			\
 			  display.c				\
 			  events.c				\
-			  enemy.c				\
 			  utils.c				\
-			#   game.c				\
+			  score.c				\
+
+SRCS_BONUS	= main_bonus.c			\
+			  map_check_bonus.c		\
+			  map_char_bonus.c		\
+			  map_path_bonus.c		\
+			  map_parse_bonus.c		\
+			  display_bonus.c		\
+			  events_bonus.c		\
+			  enemy_bonus.c			\
+			  utils_bonus.c			\
 
 OBJS_LIBFT	= $(addprefix srcs/libft/, $(SRCS_LIBFT:.c=.o))
 
 OBJS_PRINTF	= $(addprefix srcs/printf/, $(SRCS_PRINTF:.c=.o))
 
 OBJS		= $(addprefix srcs/, $(SRCS:.c=.o))
+
+OBJS_BONUS	= $(addprefix srcs/bonus/, $(SRCS_BONUS:.c=.o))
 
 LIBFT		= libft.a
 
@@ -68,14 +79,15 @@ NAME		= so_long
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(NAME):	$(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) -o $(NAME) 
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_MAC) -o $(NAME) 
 
-$(LIBFT):	$(OBJS_LIBFT) $(OBJS_PRINTF)
-	$(AR) $(LIBFT) $(OBJS_LIBFT) $(OBJS_PRINTF)
+$(LIBFT):	$(OBJS_LIBFT) #$(OBJS_PRINTF)
+	$(AR) $(LIBFT) $(OBJS_LIBFT)
 
 all:		$(NAME)
 
-bonus:		all
+bonus:		$(OBJS_BONUS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT) $(MLX_MAC) -o $(NAME)
 
 clean:
 	$(RM) $(OBJS) $(OBJS_LIBFT)

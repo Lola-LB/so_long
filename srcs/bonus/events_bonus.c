@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events.c                                           :+:      :+:    :+:   */
+/*   events_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/14 20:48:43 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/14 19:54:09 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	swap_player(t_param *param, t_loc old, int x, int y)
 {
@@ -33,7 +33,7 @@ void	swap_player(t_param *param, t_loc old, int x, int y)
 			param->player.x = x;
 			param->player.y = y;
 			param->move++;
-			//printf("%d\n", param->move);
+			printf("%d\n", param->move);
 		}
 	}
 }
@@ -56,17 +56,32 @@ void	move_player(int keysym, t_param *param)
 	}
 }
 
+int	handle_live(t_param *param)
+{
+	static int	i;
+
+	if (i < 5000)
+		++i;
+	else if (i == 5000 && !param->end_game)
+	{
+		move_enemy(param);
+		images_to_map(param);
+		check_enemy(param);
+		i = 0;
+	}
+	return (0);
+}
+
 int	handle_key(int keysym, t_param *param)
 {
-	//printf("%d\n", keysym);
 	if (keysym == XK_Escape)
 		end_game(param);
-	else if (!param->end_game && (keysym == W || keysym == A || keysym == S
-			|| keysym == D))
+	else if (!param->end_game && (keysym == W || keysym == A || keysym == S || keysym == D))
 	{
 		move_player(keysym, param);
 		if (!param->end_game)
 			images_to_map(param);
+		check_enemy(param);
 	}
 	return (0);
 }

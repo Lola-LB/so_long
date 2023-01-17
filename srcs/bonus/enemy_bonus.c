@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy.c                                            :+:      :+:    :+:   */
+/*   enemy_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:05:34 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/13 19:56:29 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/14 19:56:42 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "so_long.h"
+# include "so_long_bonus.h"
 
 int	nb_enemy(t_param *param)
 {
@@ -73,17 +73,20 @@ void	move_enemy(t_param *param)
 	{
 		x = 0;
 		y = 0;
-		while (param->map.map[param->enemy.loc[i].x + x][param->enemy.loc[i].y + y] != '0'
-		&& param->map.map[param->enemy.loc[i].x + x][param->enemy.loc[i].y + y] != 'P')
+		while (!(x || y))
 		{
-			dep = rand() % 4;
-			x = (dep == 0) - (dep == 1);
-			y = (dep == 2) - (dep == 3);
+			dep = rand() % 2;
+			x = (dep == 0) * ((param->enemy.loc[i].x < param->player.x) - (param->enemy.loc[i].x > param->player.x));
+			y = (dep == 1) * ((param->enemy.loc[i].y < param->player.y) - (param->enemy.loc[i].y > param->player.y));
 		}
-		param->map.map[param->enemy.loc[i].x][param->enemy.loc[i].y] = '0';
-		param->enemy.loc[i].x += x;
-		param->enemy.loc[i].y += y;
-		param->map.map[param->enemy.loc[i].x][param->enemy.loc[i].y] = 'X';
+		if (param->map.map[param->enemy.loc[i].x + x][param->enemy.loc[i].y + y] == '0'
+			|| param->map.map[param->enemy.loc[i].x + x][param->enemy.loc[i].y + y] == 'P')
+		{
+			param->map.map[param->enemy.loc[i].x][param->enemy.loc[i].y] = '0';
+			param->enemy.loc[i].x += x;
+			param->enemy.loc[i].y += y;
+			param->map.map[param->enemy.loc[i].x][param->enemy.loc[i].y] = 'X';
+		}
 		++i;
 	}
 }
@@ -100,7 +103,7 @@ void	check_enemy(t_param *param)
 	while (i < param->enemy.nb)
 	{
 		if (param->enemy.loc[i].x == x && param->enemy.loc[i].y == y)
-			game_over(param);
+			end_screen(param, 0);
 		++i;
 	}
 }
