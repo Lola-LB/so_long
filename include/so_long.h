@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/14 20:38:58 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:43:26 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define MLX_ERROR "Minilibx error"
 # define FILE_ERROR "File error"
 
-# define NB_FILES 26
+# define NB_FILES 27
 # define NUM_OFFSET 16
 # define NB_PIXEL 70
 
@@ -68,23 +68,35 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_enemy {
-	t_loc	*loc;
+	t_loc	loc;
+	int		dead;
+} t_enemy;
+
+typedef struct s_enemies {
+	t_enemy	*enemy;
 	int		nb;
-}	t_enemy;
+}	t_enemies;
+typedef struct s_att {
+	int		active;
+	t_loc	loc;
+	int		way;
+}	t_att;
 
 typedef struct	s_param {
-	void	*mlx;
-	void	*win;
-	t_map	map;
-	t_img	*img;
-	t_loc	player;
-	t_loc	exit;
-	t_enemy	enemy;
-	int		move;
-	int		coll;
-	int		left;
-	int		burp;
-	int		end_game;
+	void		*mlx;
+	void		*win;
+	t_map		map;
+	t_map		map_saved;
+	t_img		*img;
+	t_loc		player;
+	t_loc		exit;
+	t_enemies	enemies;
+	int			move;
+	int			coll;
+	int			left;
+	int			burp;
+	int			end_game;
+	t_att		attack;
 }	t_param;
 
 /* ************************************************************************** */

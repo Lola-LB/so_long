@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   score.c                                            :+:      :+:    :+:   */
+/*   score_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 20:32:08 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/15 01:28:24 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/15 02:47:39 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ void	display_score(t_param *param)
 	{
 		number = score % 10;
 		score /= 10;
-		printf("%d", number);
 		mlx_put_image_to_window(param->mlx, param->win, param->img[NUM_OFFSET + number].img, param->map.width * NB_PIXEL - i * 37 - 37, 3);
 		++i;
 	}
-	printf("\n");
 }

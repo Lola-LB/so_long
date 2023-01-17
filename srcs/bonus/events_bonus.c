@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:49 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/14 19:54:09 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:55:15 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	swap_player(t_param *param, t_loc old, int x, int y)
 			param->player.x = x;
 			param->player.y = y;
 			param->move++;
-			printf("%d\n", param->move);
+			//printf("%d\n", param->move);
 		}
 	}
 }
@@ -44,44 +44,79 @@ void	move_player(int keysym, t_param *param)
 		swap_player(param, param->player, param->player.x - 1, param->player.y);
 	else if (keysym == A && param->player.y)
 	{
-		param->left = 1;
-		swap_player(param, param->player, param->player.x, param->player.y - 1);
+		if (param->left)
+			swap_player(param, param->player, param->player.x, param->player.y - 1);
+		else
+			param->left = 1;
 	}
 	else if (keysym == S && param->player.x != param->map.len)
 		swap_player(param, param->player, param->player.x + 1, param->player.y);
 	else if (keysym == D && param->player.y != param->map.width)
 	{
-		param->left = 0;
-		swap_player(param, param->player, param->player.x, param->player.y + 1);
+		if (param->left)
+			param->left = 0;
+		else
+			swap_player(param, param->player, param->player.x, param->player.y + 1);
 	}
 }
 
 int	handle_live(t_param *param)
 {
 	static int	i;
+	static int	j;
 
-	if (i < 5000)
-		++i;
-	else if (i == 5000 && !param->end_game)
+	if (!param->end_game)
 	{
-		move_enemy(param);
-		images_to_map(param);
-		check_enemy(param);
-		i = 0;
+		if (j == ATTACK_SPEED && param->attack.active)
+		{
+			move_attack(param);
+			images_to_map(param);
+			j = 0;
+		}
+		else if (param->attack.active)
+			++j;
+		if (i == ENEMY_SPEED)
+		{
+			move_enemy(param);
+			images_to_map(param);
+			check_enemy(param);
+			i = 0;
+		}
+		else
+			++i;
+		
 	}
 	return (0);
 }
 
+void	restart_game(t_param *param)
+{
+	free_map(param->map.map);
+	param->map.map = ft_mapcopy(param->map_saved);
+	init_enemy(param);
+	param->left = 0;
+	param->burp = 0;
+	param->move = 0;
+	param->attack.active = 0;
+	param->end_game = 0;
+	images_to_map(param);
+}
+
 int	handle_key(int keysym, t_param *param)
 {
+	//printf("%d\n", keysym);
 	if (keysym == XK_Escape)
 		end_game(param);
 	else if (!param->end_game && (keysym == W || keysym == A || keysym == S || keysym == D))
 	{
 		move_player(keysym, param);
-		if (!param->end_game)
-			images_to_map(param);
 		check_enemy(param);
 	}
+	else if (!param->end_game && keysym == KEY_ATTACK)
+		player_attack(param);
+	if (!param->end_game)
+		images_to_map(param);
+	else if (param->end_game && keysym == RESTART_GAME)
+		restart_game(param);
 	return (0);
 }

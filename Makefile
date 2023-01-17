@@ -47,6 +47,8 @@ SRCS_BONUS	= main_bonus.c			\
 			  display_bonus.c		\
 			  events_bonus.c		\
 			  enemy_bonus.c			\
+			  attack_bonus.c		\
+			  score_bonus.c			\
 			  utils_bonus.c			\
 
 OBJS_LIBFT	= $(addprefix srcs/libft/, $(SRCS_LIBFT:.c=.o))

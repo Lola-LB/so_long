@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/14 19:25:36 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/15 02:55:52 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ void	init_images(t_param *param)
 {
 	t_img		*images;
 	static char	*files[NB_FILES] = {"files/beer.xpm", "files/grass.xpm",
-		"files/lad.xpm", "files/bush.xpm", "files/char_1.xpm", 
-		"files/char_2.xpm", "files/char_3.xpm","files/char_4.xpm",
-		"files/char_1_left.xpm", "files/char_2_left.xpm", "files/char_3_left.xpm",
-		"files/char_4_left.xpm", "files/burp.xpm", "files/police.xpm",
-		"files/game_over.xpm", "files/win_screen.xpm"};
+		"files/lad.xpm", "files/bush.xpm", "files/char_1.xpm",
+		"files/char_2.xpm", "files/char_3.xpm", "files/char_4.xpm",
+		"files/char_1_left.xpm", "files/char_2_left.xpm",
+		"files/char_3_left.xpm", "files/char_4_left.xpm",
+		"files/burp.xpm", "files/police.xpm", "files/game_over.xpm",
+		"files/win_screen.xpm", "files/numbers_0.xpm", "files/numbers_1.xpm",
+		"files/numbers_2.xpm", "files/numbers_3.xpm", "files/numbers_4.xpm",
+		"files/numbers_5.xpm", "files/numbers_6.xpm", "files/numbers_7.xpm",
+		"files/numbers_8.xpm", "files/numbers_9.xpm", "files/gameboy.xpm"};
 	int			i;
 
 	images = malloc(sizeof(t_img) * NB_FILES);
@@ -91,4 +95,6 @@ void	images_to_map(t_param *param)
 		++i;
 	}
 	burp(param);
+	display_score(param);
+	display_attack(param);
 }

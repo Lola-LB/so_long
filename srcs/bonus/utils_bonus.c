@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:31:03 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/14 19:22:58 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:46:39 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,17 @@ void	ft_error(t_param *param, char *error)
 void	init_param(t_param *param, t_map map)
 {
 	param->map = map;
+	param->map_saved.map = ft_mapcopy(map);
 	param->mlx = NULL;
 	param->win = NULL;
 	check_map(param);
+	param->map_saved.len = param->map.len;
+	param->map_saved.width = param->map.width;
 	init_enemy(param);
 	param->left = 0;
 	param->burp = 0;
 	param->move = 0;
+	param->attack.active = 0;
 	param->end_game = 0;
 }
 

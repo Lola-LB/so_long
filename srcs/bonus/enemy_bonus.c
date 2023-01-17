@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:05:34 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/14 19:56:42 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:10:31 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	init_enemy(t_param *param)
 	int	y;
 
 	i = 0;
-	param->enemy.nb = nb_enemy(param);
-	param->enemy.loc = malloc (sizeof(t_loc) * param->enemy.nb);
-	if (!param->enemy.loc)
+	param->enemies.nb = nb_enemy(param);
+	param->enemies.enemy = malloc(sizeof(t_enemy) * param->enemies.nb);
+	if (!param->enemies.enemy)
 		ft_error(param, MALLOC_ERROR);
-	while (i < param->enemy.nb)
+	while (i < param->enemies.nb)
 	{
 		x = 0;
 		y = 0;
@@ -54,9 +54,10 @@ void	init_enemy(t_param *param)
 			x = rand() % param->map.len;
 			y = rand() % param->map.width;
 		}
-		param->enemy.loc[i].x = x;
-		param->enemy.loc[i].y = y;
+		param->enemies.enemy[i].loc.x = x;
+		param->enemies.enemy[i].loc.y = y;
 		param->map.map[x][y] = 'X';
+		param->enemies.enemy[i].dead = 0;
 		++i;
 	}
 }
@@ -69,23 +70,23 @@ void	move_enemy(t_param *param)
 	int	y;
 
 	i = 0;
-	while (i < param->enemy.nb)
+	while (i < param->enemies.nb)
 	{
 		x = 0;
 		y = 0;
-		while (!(x || y))
+		while (!param->enemies.enemy[i].dead && !(x || y))
 		{
 			dep = rand() % 2;
-			x = (dep == 0) * ((param->enemy.loc[i].x < param->player.x) - (param->enemy.loc[i].x > param->player.x));
-			y = (dep == 1) * ((param->enemy.loc[i].y < param->player.y) - (param->enemy.loc[i].y > param->player.y));
+			x = (dep == 0) * ((param->enemies.enemy[i].loc.x < param->player.x) - (param->enemies.enemy[i].loc.x > param->player.x));
+			y = (dep == 1) * ((param->enemies.enemy[i].loc.y < param->player.y) - (param->enemies.enemy[i].loc.y > param->player.y));
 		}
-		if (param->map.map[param->enemy.loc[i].x + x][param->enemy.loc[i].y + y] == '0'
-			|| param->map.map[param->enemy.loc[i].x + x][param->enemy.loc[i].y + y] == 'P')
+		if (!param->enemies.enemy[i].dead && (param->map.map[param->enemies.enemy[i].loc.x + x][param->enemies.enemy[i].loc.y + y] == '0'
+			|| param->map.map[param->enemies.enemy[i].loc.x + x][param->enemies.enemy[i].loc.y + y] == 'P'))
 		{
-			param->map.map[param->enemy.loc[i].x][param->enemy.loc[i].y] = '0';
-			param->enemy.loc[i].x += x;
-			param->enemy.loc[i].y += y;
-			param->map.map[param->enemy.loc[i].x][param->enemy.loc[i].y] = 'X';
+			param->map.map[param->enemies.enemy[i].loc.x][param->enemies.enemy[i].loc.y] = '0';
+			param->enemies.enemy[i].loc.x += x;
+			param->enemies.enemy[i].loc.y += y;
+			param->map.map[param->enemies.enemy[i].loc.x][param->enemies.enemy[i].loc.y] = 'X';
 		}
 		++i;
 	}
@@ -100,10 +101,27 @@ void	check_enemy(t_param *param)
 	x = param->player.x;
 	y = param->player.y;
 	i = 0;
-	while (i < param->enemy.nb)
+	while (i < param->enemies.nb)
 	{
-		if (param->enemy.loc[i].x == x && param->enemy.loc[i].y == y)
+		if (!param->enemies.enemy[i].dead && param->enemies.enemy[i].loc.x == x && param->enemies.enemy[i].loc.y == y)
 			end_screen(param, 0);
+		++i;
+	}
+}
+
+void	kill_enemy(t_param *param, int x, int y)
+{
+	int	i;
+	
+	i = 0;
+	while (i < param->enemies.nb)
+	{
+		if (param->enemies.enemy[i].loc.x == x && param->enemies.enemy[i].loc.y == y)
+		{
+			printf("killing enemy %d\n", i);
+			param->enemies.enemy[i].dead = 1;
+			param->map.map[x][y] = '0';
+		}
 		++i;
 	}
 }
