@@ -83,8 +83,8 @@ NAME		= so_long
 $(NAME):	$(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_MAC) -o $(NAME) 
 
-$(LIBFT):	$(OBJS_LIBFT) #$(OBJS_PRINTF)
-	$(AR) $(LIBFT) $(OBJS_LIBFT)
+$(LIBFT):	$(OBJS_LIBFT) $(OBJS_PRINTF)
+	$(AR) $(LIBFT) $(OBJS_LIBFT) $(OBJS_PRINTF)
 
 all:		$(NAME)
 
@@ -92,7 +92,7 @@ bonus:		$(OBJS_BONUS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT) $(MLX_MAC) -o $(NAME)
 
 clean:
-	$(RM) $(OBJS) $(OBJS_LIBFT)
+	$(RM) $(OBJS) $(OBJS_BONUS) $(OBJS_LIBFT) $(OBJS_PRINTF)
 
 fclean:		clean
 	$(RM) $(NAME) $(LIBFT)
