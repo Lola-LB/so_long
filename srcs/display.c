@@ -6,15 +6,14 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:23:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/17 17:08:56 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:53:27 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	init_images(t_param *param)
+char	**file_names(void)
 {
-	t_img		*images;
 	static char	*files[NB_FILES] = {"files/beer.xpm", "files/grass.xpm",
 		"files/lad.xpm", "files/bush.xpm", "files/char_1.xpm",
 		"files/char_2.xpm", "files/char_3.xpm", "files/char_4.xpm",
@@ -25,9 +24,19 @@ void	init_images(t_param *param)
 		"files/numbers_2.xpm", "files/numbers_3.xpm", "files/numbers_4.xpm",
 		"files/numbers_5.xpm", "files/numbers_6.xpm", "files/numbers_7.xpm",
 		"files/numbers_8.xpm", "files/numbers_9.xpm", "files/gameboy.xpm"};
-	int			i;
 
-	images = malloc(sizeof(t_img) * NB_FILES);
+	return ((char **) files);
+}
+
+void	init_images(t_param *param)
+{
+	t_img	*images;
+	char	**files;
+	int		i;
+
+	files = file_names();
+	images = (t_img *) ft_calloc(sizeof(t_img), NB_FILES);
+	param->img = images;
 	if (!images)
 		ft_error(param, MALLOC_ERROR);
 	i = 0;
@@ -36,13 +45,9 @@ void	init_images(t_param *param)
 		images[i].img = mlx_xpm_file_to_image(param->mlx, files[i],
 				&images[i].width, &images[i].height);
 		if (!images[i].img)
-		{
-			printf("%s %i\n", files[i], i);
 			ft_error(param, FILE_ERROR);
-		}
 		++i;
 	}
-	param->img = images;
 }
 
 void	*get_img(t_param *param, int i, int j)

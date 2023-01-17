@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 17:05:56 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/14 19:26:38 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:07:26 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	check_char(t_param *param, int exit, int start, int collectible)
 		ft_error(param, NO_COLL);
 }
 
-void	init_player(t_param *param, int *start, int i, int j)
+void	init_loc(t_loc *loc, int *start, int i, int j)
 {
-	param->player.x = i;
-	param->player.y = j;
+	loc->x = i;
+	loc->y = j;
 	++*start;
 }
 
@@ -45,14 +45,10 @@ void	char_contained(t_param *param, int exit, int start, int collectible)
 		while (param->map.map[i][j + 1])
 		{
 			if (param->map.map[i][j] == 'E')
-			{
-				param->exit.x = i;
-				param->exit.y = j;
-				++exit;
-			}
+				init_loc(&param->exit, &exit, i, j);
 			collectible += (param->map.map[i][j] == 'C');
 			if (param->map.map[i][j] == 'P')
-				init_player(param, &start, i, j);
+				init_loc(&param->player, &start, i, j);
 			else if (!ft_strchr("01EC", param->map.map[i][j]))
 				ft_error(param, FORBIDDEN_CHAR);
 			++j;

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 18:12:48 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/15 02:47:42 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:06:31 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,26 @@ void	explore_map(char **map, int px, int py)
 	return ;
 }
 
+void	check_final(char **map, int px)
+{
+	int	py;
+
+	while (map[px + 1])
+	{
+		py = 1;
+		while (map[px][py + 1])
+		{
+			if (map[px][py] == 'C' || map[px][py] == 'E')
+			{
+				free_map(map);
+				ft_error(NULL, NO_VALID_PATH);
+			}
+			++py;
+		}
+		++px;
+	}
+}
+
 void	valid_path(t_map map)
 {
 	char	**map_copy;
@@ -42,6 +62,11 @@ void	valid_path(t_map map)
 	int		py;
 
 	map_copy = ft_mapcopy(map);
+	if (!map_copy)
+	{
+		free_map(map.map);
+		ft_error(NULL, MALLOC_ERROR);
+	}
 	px = 0;
 	py = 1;
 	while (map_copy[px + 1] && map_copy[px][py] != 'P')
@@ -52,21 +77,7 @@ void	valid_path(t_map map)
 			++py;
 	}
 	explore_map(map_copy, px, py);
-	px = 1;
-	while (map_copy[px + 1])
-	{
-		py = 1;
-		while (map_copy[px][py + 1])
-		{
-			if (map_copy[px][py] == 'C' || map_copy[px][py] == 'E')
-			{
-				free_map(map_copy);
-				ft_error(NULL, NO_VALID_PATH);
-			}
-			++py;
-		}
-		++px;
-	}
+	check_final(map_copy, 1);
 	free_map(map_copy);
 }
 

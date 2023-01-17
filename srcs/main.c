@@ -6,11 +6,23 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:41:26 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/14 19:16:52 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:12:56 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	print_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		printf("%s\n", map[i]);
+		++i;
+	}
+}
 
 int	main(int ac, char **av)
 {
@@ -20,6 +32,7 @@ int	main(int ac, char **av)
 	if (ac < 2)
 		ft_error(NULL, "Must provide a map to launch the game");
 	map = parse_map(*(av + 1));
+	print_map(map.map);
 	if (!map.map || !*map.map)
 		ft_error(NULL, "Parsing of the map failed");
 	init_param(&param, map);
@@ -35,12 +48,12 @@ void	launch_game(t_param	*param)
 	mlx = mlx_init();
 	if (!mlx)
 		ft_error(param, MLX_ERROR);
+	param->mlx = mlx;
 	win = mlx_new_window(mlx, param->map.width * NB_PIXEL,
 			param->map.len * NB_PIXEL, "Welcome to So Long !");
+	param->win = win;
 	if (!win)
 		ft_error(param, MLX_ERROR);
-	param->mlx = mlx;
-	param->win = win;
 	init_images(param);
 	images_to_map(param);
 	mlx_hook(win, 2, (1L << 0), &handle_key, param);
@@ -52,27 +65,26 @@ int	end_game(t_param *param)
 {
 	int	i;
 
-	if (param)
+	if (param && param->img)
 	{
-		if (param->img)
+		i = 0;
+		while (i < NB_FILES)
 		{
-			i = 0;
-			while (i < NB_FILES)
-			{
+			if (param->img[i].img)
 				mlx_destroy_image(param->mlx, param->img[i].img);
-				++i;
-			}
-			free(param->img);
+			++i;
 		}
-		if (param->win)
-			mlx_destroy_window(param->mlx, param->win);
-		if (param->mlx)
-		{
-			//mlx_destroy_display(param->mlx);
-			free(param->mlx);
-		}
-		free_map(param->map.map);
+		free(param->img);
 	}
+	if (param && param->win)
+		mlx_destroy_window(param->mlx, param->win);
+	if (param && param->mlx)
+	{
+		mlx_destroy_display(param->mlx);
+		free(param->mlx);
+	}
+	if (param)
+		free_map(param->map.map);
 	exit(0);
 	return (0);
 }

@@ -59,6 +59,11 @@ OBJS		= $(addprefix srcs/, $(SRCS:.c=.o))
 
 OBJS_BONUS	= $(addprefix srcs/bonus/, $(SRCS_BONUS:.c=.o))
 
+DEP			= $(OBJS_LIBFT:.o=.d)	\
+			  $(OBJS_PRINTF:.o=.d)	\
+			  $(OBJS:.o=.d)			\
+			  $(OBJS_BONUS:.o=.d)
+
 LIBFT		= libft.a
 
 INC			= -I include/
@@ -67,7 +72,7 @@ CC			= cc
 
 AR			= ar rcs
 
-CFLAGS		= -g3 -Wall -Wextra -Werror
+CFLAGS		= -g3 -Wall -Wextra -Werror -MMD
 
 MLX_MAC		= -Lmlx_mac -lmlx -framework OpenGL -framework AppKit
 
@@ -81,7 +86,7 @@ NAME		= so_long
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(NAME):	$(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_MAC) -o $(NAME) 
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) -o $(NAME) 
 
 $(LIBFT):	$(OBJS_LIBFT) $(OBJS_PRINTF)
 	$(AR) $(LIBFT) $(OBJS_LIBFT) $(OBJS_PRINTF)
@@ -89,14 +94,16 @@ $(LIBFT):	$(OBJS_LIBFT) $(OBJS_PRINTF)
 all:		$(NAME)
 
 bonus:		$(OBJS_BONUS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT) $(MLX_MAC) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT) $(MLX) -o $(NAME)
 
 clean:
-	$(RM) $(OBJS) $(OBJS_BONUS) $(OBJS_LIBFT) $(OBJS_PRINTF)
+	$(RM) $(OBJS) $(OBJS_BONUS) $(OBJS_LIBFT) $(OBJS_PRINTF) $(DEP)
 
 fclean:		clean
 	$(RM) $(NAME) $(LIBFT)
 
 re:		fclean all
+
+-include : $(DEP)
 
 .PHONY:		all bonus clean fclean re

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:24:09 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/14 19:16:24 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:08:15 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	closed_walls(t_param *param)
 		++i;
 	}
 	j = 0;
-	while (*(*param->map.map + j))
+	while (*param->map.map && *(*param->map.map + j))
 	{
 		if (*(*param->map.map + j) != '1'
 			|| *(*(param->map.map + i) + j) != '1')
