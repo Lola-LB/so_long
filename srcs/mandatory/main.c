@@ -6,23 +6,11 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:41:26 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/17 20:12:56 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:32:22 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	print_map(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		++i;
-	}
-}
 
 int	main(int ac, char **av)
 {
@@ -32,7 +20,6 @@ int	main(int ac, char **av)
 	if (ac < 2)
 		ft_error(NULL, "Must provide a map to launch the game");
 	map = parse_map(*(av + 1));
-	print_map(map.map);
 	if (!map.map || !*map.map)
 		ft_error(NULL, "Parsing of the map failed");
 	init_param(&param, map);

@@ -55,7 +55,7 @@ OBJS_LIBFT	= $(addprefix srcs/libft/, $(SRCS_LIBFT:.c=.o))
 
 OBJS_PRINTF	= $(addprefix srcs/printf/, $(SRCS_PRINTF:.c=.o))
 
-OBJS		= $(addprefix srcs/, $(SRCS:.c=.o))
+OBJS		= $(addprefix srcs/mandatory/, $(SRCS:.c=.o))
 
 OBJS_BONUS	= $(addprefix srcs/bonus/, $(SRCS_BONUS:.c=.o))
 

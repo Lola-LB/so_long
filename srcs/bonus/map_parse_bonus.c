@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:26:01 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/17 20:15:07 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:37:00 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ t_map	parse_map(char *file)
 
 	check_extension(file);
 	len = map_len(file);
-	printf("len %d\n", len);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		ft_error(NULL, FILE_ERROR);
@@ -88,6 +87,5 @@ t_map	parse_map(char *file)
 	}
 	map.len = len;
 	map.width = ft_strlen(map.map[0]) - 1 * (ft_strlen(map.map[0]) > 0);
-	printf("%d %d\n", map.len, map.width);
 	return (map);
 }
