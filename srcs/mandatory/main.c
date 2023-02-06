@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:41:26 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/31 15:32:22 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:23:42 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	end_game(t_param *param)
 		free(param->mlx);
 	}
 	if (param)
-		free_map(param->map.map);
+		free_map(param->map);
 	exit(0);
 	return (0);
 }

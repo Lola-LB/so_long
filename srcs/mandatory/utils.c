@@ -6,23 +6,23 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:31:03 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/31 15:29:28 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:23:14 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	free_map(char **map)
+void	free_map(t_map map)
 {
 	int	i;
 
 	i = 0;
-	while (map[i])
+	while (i < map.len)
 	{
-		free(map[i]);
+		free(map.map[i]);
 		++i;
 	}
-	free(map);
+	free(map.map);
 }
 
 void	ft_error(t_param *param, char *error)
@@ -36,6 +36,7 @@ void	init_param(t_param *param, t_map map)
 	param->map = map;
 	param->mlx = NULL;
 	param->win = NULL;
+	param->img = NULL;
 	check_map(param);
 	param->left = 0;
 	param->burp = 0;

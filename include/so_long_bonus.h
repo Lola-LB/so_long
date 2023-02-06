@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/31 15:38:10 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:15:06 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "so_long.h"
 
-# define ENEMY_SPEED 15000
+# define ENEMY_SPEED 10000
 # define KEY_ATTACK 32 //49
 # define ATTACK_SPEED 1000
 # define RESTART_GAME 49

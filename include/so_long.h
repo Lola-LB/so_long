@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/17 20:02:16 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:25:56 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_enemies
 	t_enemy		*enemy;
 	int			nb;
 }				t_enemies;
+
 typedef struct s_att
 {
 	int			active;
@@ -155,7 +156,7 @@ char			**ft_mapcopy(t_map src);
 
 void			ft_error(t_param *param, char *error);
 void			free_enemy(t_param *param);
-void			free_map(char **map);
+void			free_map(t_map map);
 void			init_param(t_param *param, t_map map);
 void			end_screen(t_param *param, int win);
 

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 18:12:48 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/17 18:41:19 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:28:21 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	check_final(char **map, int px)
 
 void	valid_path(t_map map)
 {
+	t_map	map;
 	char	**map_copy;
 	int		px;
 	int		py;
@@ -64,7 +65,7 @@ void	valid_path(t_map map)
 	map_copy = ft_mapcopy(map);
 	if (!map_copy)
 	{
-		free_map(map.map);
+		free_map(map);
 		ft_error(NULL, MALLOC_ERROR);
 	}
 	px = 0;
@@ -78,7 +79,8 @@ void	valid_path(t_map map)
 	}
 	explore_map(map_copy, px, py);
 	check_final(map_copy, 1);
-	free_map(map_copy);
+	map.map = map_copy;
+	free_map(map);
 }
 
 char	**ft_mapcopy(t_map src)

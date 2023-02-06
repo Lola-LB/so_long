@@ -66,7 +66,7 @@ DEP			= $(OBJS_LIBFT:.o=.d)	\
 
 LIBFT		= libft.a
 
-INC			= -I include/
+INC			= -I include/ -I mlx/
 
 CC			= cc
 

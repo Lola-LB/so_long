@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:41:26 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/31 15:36:20 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:17:18 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	free_mlx(t_param *param)
 		mlx_destroy_window(param->mlx, param->win);
 	if (param && param->mlx)
 	{
-		printf("ok\n");
 		mlx_destroy_display(param->mlx);
 		free(param->mlx);
 	}
