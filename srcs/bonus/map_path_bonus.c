@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 18:12:48 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/17 19:06:31 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:57:48 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,49 +35,53 @@ void	explore_map(char **map, int px, int py)
 	return ;
 }
 
-void	check_final(char **map, int px)
+int	check_final(t_map map, int px)
 {
 	int	py;
 
-	while (map[px + 1])
+	while (map.map[px + 1])
 	{
 		py = 1;
-		while (map[px][py + 1])
+		while (map.map[px][py + 1])
 		{
-			if (map[px][py] == 'C' || map[px][py] == 'E')
-			{
-				free_map(map);
-				ft_error(NULL, NO_VALID_PATH);
-			}
+			if (map.map[px][py] == 'C' || map.map[px][py] == 'E')
+				return (0);
 			++py;
 		}
 		++px;
 	}
+	return (1);
 }
 
 void	valid_path(t_map map)
 {
-	char	**map_copy;
+	t_map	map_copy;
 	int		px;
 	int		py;
 
-	map_copy = ft_mapcopy(map);
-	if (!map_copy)
+	map_copy.map = ft_mapcopy(map);
+	map_copy.len = map.len;
+	if (!map_copy.map)
 	{
-		free_map(map.map);
+		free_map(map);
 		ft_error(NULL, MALLOC_ERROR);
 	}
 	px = 0;
 	py = 1;
-	while (map_copy[px + 1] && map_copy[px][py] != 'P')
+	while (map_copy.map[px + 1] && map_copy.map[px][py] != 'P')
 	{
 		++px;
 		py = 1;
-		while (map_copy[px][py] && map_copy[px][py] != 'P')
+		while (map_copy.map[px][py] && map_copy.map[px][py] != 'P')
 			++py;
 	}
-	explore_map(map_copy, px, py);
-	check_final(map_copy, 1);
+	explore_map(map_copy.map, px, py);
+	if (!check_final(map_copy, 1))
+	{
+		free_map(map);
+		free_map(map_copy);
+		ft_error(NULL, NO_VALID_PATH);
+	}
 	free_map(map_copy);
 }
 

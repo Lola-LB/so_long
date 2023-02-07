@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:26:01 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/02/06 19:26:11 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:00:51 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ int	map_len(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		ft_error(NULL, FILE_ERROR);
-	if (read(fd, &buff, 1) > 0 && buff != '\n')
-		++len;
+	buff = '\n';
+	while (buff == '\n')
+		read(fd, &buff, 1);
 	while (read(fd, &buff, 1) > 0)
 	{
-		if (buff == '\n' && read(fd, &buff, 1) > 0)
+		if (buff == '\n')
 			++len;
 	}
+	if (buff != '\n')
+		++len;
 	if (close(fd) == -1)
 		ft_error(NULL, SYST_ERROR);
 	return (len);

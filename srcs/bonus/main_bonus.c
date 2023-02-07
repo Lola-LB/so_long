@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:41:26 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/02/06 19:17:18 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:25:19 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char **av)
 	map = parse_map(*(av + 1));
 	if (!map.map || !*map.map)
 	{
-		free_map(map.map);
+		free_map(map);
 		ft_error(NULL, "Parsing of the map failed");
 	}
 	init_param(&param, map);
@@ -81,7 +81,7 @@ int	end_game(t_param *param)
 	free_mlx(param);
 	if (param)
 	{
-		free_map(param->map.map);
+		free_map(param->map);
 		free_enemy(param);
 	}
 	exit(0);

@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:26:01 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/01/31 15:37:00 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:23:49 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ int	map_len(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		ft_error(NULL, FILE_ERROR);
-	if (read(fd, &buff, 1) > 0 && buff != '\n')
-		++len;
+	buff = '\n';
+	while (buff == '\n')
+		read(fd, &buff, 1);
 	while (read(fd, &buff, 1) > 0)
 	{
-		if (buff == '\n' && read(fd, &buff, 1) > 0)
+		if (buff == '\n')
 			++len;
 	}
+	if (buff != '\n')
+		++len;
 	if (close(fd) == -1)
 		ft_error(NULL, SYST_ERROR);
 	return (len);
@@ -43,7 +46,7 @@ void	check_extension(char *file)
 		ft_error(NULL, "Map file must end with a .ber extension");
 }
 
-void	read_lines(char **map, int fd, int len)
+void	read_lines(t_map *map, int fd, int len)
 {
 	int		i;
 	char	*line;
@@ -54,15 +57,14 @@ void	read_lines(char **map, int fd, int len)
 		line = get_next_line(fd);
 		if (!line)
 		{
-			free_map(map);
+			free_map(*map);
 			ft_error(NULL, GNL_ERROR);
 		}
-		*(map + i) = line;
+		*(map->map + i) = line;
 		++i;
 	}
-	if (i)
-		line = get_next_line(fd);
-	*(map + i) = NULL;
+	line = get_next_line(fd);
+	*(map->map + i) = NULL;
 }
 
 t_map	parse_map(char *file)
@@ -79,13 +81,13 @@ t_map	parse_map(char *file)
 	map.map = malloc(sizeof(char *) * (len + 1));
 	if (!map.map)
 		ft_error(NULL, MALLOC_ERROR);
-	read_lines(map.map, fd, len);
+	map.len = len;
+	read_lines(&map, fd, len);
 	if (close(fd) == -1)
 	{
-		free_map(map.map);
+		free_map(map);
 		ft_error(NULL, SYST_ERROR);
 	}
-	map.len = len;
-	map.width = ft_strlen(map.map[0]) - 1 * (ft_strlen(map.map[0]) > 0);
+	map.width = ft_strlen(map.map[0]) - 1;
 	return (map);
 }

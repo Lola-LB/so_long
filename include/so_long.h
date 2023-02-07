@@ -6,7 +6,7 @@
 /*   By: lle-bret <lle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:16:23 by lle-bret          #+#    #+#             */
-/*   Updated: 2023/02/06 19:25:56 by lle-bret         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:56:01 by lle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void			char_contained(t_param *param, int exit, int start,
 
 void			expand_path(char **map, int px, int py);
 void			explore_map(char **map, int px, int py);
+int				check_final(t_map map, int px);
 void			valid_path(t_map map);
 char			**ft_mapcopy(t_map src);
 
